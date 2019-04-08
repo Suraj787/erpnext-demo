@@ -16,12 +16,7 @@ frappe.query_reports["Assessment Plan Status"] = {
 					}
 				};
 			}
-		},
-		{
-			"fieldname":"schedule_date",
-			"label": __("Scheduled Upto"),
-			"fieldtype": "Date",
-			"options": ""
+		
 		}
 
 	]

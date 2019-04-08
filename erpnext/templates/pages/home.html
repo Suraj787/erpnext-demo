@@ -1,0 +1,122 @@
+{% extends "templates/web.html" %}
+{% from "erpnext/templates/includes/macros.html" import product_image_square %}
+{% from "templates/includes/macros.html" import item_name_and_description %}
+
+
+{% block page_content %}
+
+<div class="row">
+        <div class="col-sm-12">
+                <div class="hero">
+                        <h1 class="text-center">{{ homepage.tag_line or '' }}</h1>
+                        <p class="text-center">{{ homepage.description or '' }}</p>
+                </div>
+                {% if homepage.products %}
+                <div class='featured-products-section' itemscope itemtype="http://schema.org/Product">
+                        <h5 class='featured-product-heading'>{{ _("Featured Products") }}</h5>
+                        <div class="featured-products">
+                                <div id="search-list" class="row" style="margin-top:40px;">
+                                        {% for item in homepage.products %}
+
+
+                                         
+                                      
+  <div class="column">
+   <p>{{ item.item_name }}</p>
+  </div>
+  <div class="column">
+   <input type="number" name="quantity" min="1" value="1" style="width:25%" >
+  </div>
+ 
+
+   
+
+  <div id="item-add-to-cart">
+                
+                <button class="btn btn-primary btn-sm">
+                  {{ _("Add to Cart") }}</button>
+                  
+</div>
+<div id="item-update-cart" style="display: none;">
+                <a href="/cart" class='btn btn-sm btn-default'>
+                  <i class='octicon octicon-check'></i>
+                  {{ _("View in Cart") }}</a>
+</div>
+
+ {% endfor %}
+                                </div>
+                        </div>
+                        <div class="text-center padding">
+                                <a href="{{ homepage.products_url or "/products" }}" class="btn btn-primary all-products">
+                                        {{ _("View All Products") }}</a></div>
+                </div>
+                {% endif %}
+        </div>
+</div>
+
+</style>
+  
+  
+
+{% endblock %}
+
+{% block style %}
+<style>
+        .hero {
+                padding-top: 50px;
+                padding-bottom: 100px;
+ }
+        .hero h1 {
+                font-size: 40px;
+                font-weight: 200;
+        }
+        .home-login {
+                margin-top: 30px;
+        }
+        .btn-login {
+                width: 80px;
+        }
+        .featured-product-heading, .all-products {
+                 text-transform: uppercase;
+                 letter-spacing: 0.5px;
+                 font-size: 12px;
+                 font-weight: 500;
+        }
+.all-products {
+                 font-weight: 300;
+                 padding-left: 25px;
+                 padding-right: 25px;
+                 padding-top: 10px;
+                 padding-bottom: 10px;
+        }
+.column {
+  float: left;
+  width: 33.33%;
+  padding: 5px;
+}
+
+/* Clear floats after image containers */
+.row::after {
+  content: "";
+  clear: both;
+display: table;
+}
+.column1{
+        position: absolute;
+right: 45%;
+}
+
+</style>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script>
+  
+  {% include "templates/includes/product_page.js" %}
+  {% if variant_info %}
+  window.variant_info = {{ variant_info }};
+  {% else %}
+  window.variant_info = null;
+  {% endif %}
+</script>
+
+{% endblock %}
+ 

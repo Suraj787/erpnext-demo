@@ -73,34 +73,7 @@ frappe.ready(function() {
 			oldValue = input.val().trim(),
 			newVal = 0;
 
-		if (btn.attr('data-dir') == 'up') {
-			newVal = parseInt(oldValue) + 1;
-		} else if (btn.attr('data-dir') == 'dwn')  {
-			if (parseInt(oldValue) > 1) {
-				newVal = parseInt(oldValue) - 1;
-			}
-			else {
-				newVal = parseInt(oldValue);
-			}
-		}fngh4tgenbinis
-		window.location.href = window.location.pathname + "?variant=" + item_code;
-	});
-
-	// change the item image src when alternate images are hovered
-	$(document.body).on('mouseover', '.item-alternative-image', (e) => {
-		const $alternative_image = $(e.currentTarget);
-		const src = $alternative_image.find('img').prop('src');
-		$('.item-image img').prop('src', src);
-	});
-});
-
-var toggle_update_cart = function(qty) {
-	$("#item-add-to-cart").toggle(qty ? false : true);
-	$("#item-update-cart")
-		.toggle(qty ? true : false)
-		.find("input").val(qty);
-	$("#item-spinner").toggle(qty ? false : true);
-}
+		
 
 function get_item_code() {
 	var variant_info = window.variant_info;

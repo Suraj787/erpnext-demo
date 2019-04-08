@@ -73,7 +73,59 @@ frappe.ready(function() {
 			oldValue = input.val().trim(),
 			newVal = 0;
 
-		
+		if (btn.attr('data-dir') == 'up') {
+			newVal = parseInt(oldValue) + 1;
+		} else if (btn.attr('data-dir') == 'dwn')  {
+			if (parseInt(oldValue) > 1) {
+				newVal = parseInt(oldValue) - 1;
+			}
+			else {
+				newVal = parseInt(oldValue);
+			}
+		}
+		input.val(newVal);
+	});
+
+	$("[itemscope] .item-view-attribute .form-control").on("change", function() {
+		try {
+			var item_code = encodeURIComponent(get_item_code());
+
+		} catch(e) {
+			// unable to find variant
+			// then chose the closest available one
+
+			var attribute = $(this).attr("data-attribute");
+			var attribute_value = $(this).val();
+			var item_code = find_closest_match(attribute, attribute_value);
+
+			if (!item_code) {
+				frappe.msgprint(__("Cannot find a matching Item. Please select some other value for {0}.", [attribute]))
+				throw e;
+			}
+		}
+
+		if (window.location.search == ("?variant=" + item_code) || window.location.search.includes(item_code)) {
+			return;
+		}
+
+		window.location.href = window.location.pathname + "?variant=" + item_code;
+	});
+
+	// change the item image src when alternate images are hovered
+	$(document.body).on('mouseover', '.item-alternative-image', (e) => {
+		const $alternative_image = $(e.currentTarget);
+		const src = $alternative_image.find('img').prop('src');
+		$('.item-image img').prop('src', src);
+	});
+});
+
+var toggle_update_cart = function(qty) {
+	$("#item-add-to-cart").toggle(qty ? false : true);
+	$("#item-update-cart")
+		.toggle(qty ? true : false)
+		.find("input").val(qty);
+	$("#item-spinner").toggle(qty ? false : true);
+}
 
 function get_item_code() {
 	var variant_info = window.variant_info;

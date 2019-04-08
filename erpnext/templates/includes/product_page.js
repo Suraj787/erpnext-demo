@@ -82,32 +82,7 @@ frappe.ready(function() {
 			else {
 				newVal = parseInt(oldValue);
 			}
-		}
-		input.val(newVal);
-	});
-
-	$("[itemscope] .item-view-attribute .form-control").on("change", function() {
-		try {
-			var item_code = encodeURIComponent(get_item_code());
-
-		} catch(e) {
-			// unable to find variant
-			// then chose the closest available one
-
-			var attribute = $(this).attr("data-attribute");
-			var attribute_value = $(this).val();
-			var item_code = find_closest_match(attribute, attribute_value);
-
-			if (!item_code) {
-				frappe.msgprint(__("Cannot find a matching Item. Please select some other value for {0}.", [attribute]))
-				throw e;
-			}
-		}
-
-		if (window.location.search == ("?variant=" + item_code) || window.location.search.includes(item_code)) {
-			return;
-		}
-
+		}fngh4tgenbinis
 		window.location.href = window.location.pathname + "?variant=" + item_code;
 	});
 
